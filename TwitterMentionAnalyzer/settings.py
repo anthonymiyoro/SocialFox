@@ -76,11 +76,13 @@ WSGI_APPLICATION = 'TwitterMentionAnalyzer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'amiyoro2$amiyoro2$default',
+        'USER': 'amiyoro2',
+        'PASSWORD': 'Pass1234',
+        'HOST': 'amiyoro2.mysql.pythonanywhere-services.com',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
