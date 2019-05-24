@@ -55,7 +55,6 @@ ROOT_URLCONF = 'TwitterMentionAnalyzer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -129,3 +128,11 @@ MEDIA_ROOT = u'/home/amiyoro2/TwitterMentionAnalyzer/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = u'/home/amiyoro2/TwitterMentionAnalyzer/static'
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
