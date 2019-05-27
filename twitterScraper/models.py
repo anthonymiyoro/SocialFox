@@ -6,7 +6,7 @@ from django.db import models
 class Tweet(models.Model):
     tweet_id = models.CharField(max_length=500)
     tweet = models.CharField(max_length=500)
-    date_collected = models.DateTimeField(auto_now_add=True)
+    date_collected = models.DateTimeField(auto_now_add=False)
     twitter_user = models.CharField("User Name on Twitter", max_length=50)
     number_of_likes = models.IntegerField()
     number_of_retweets = models.IntegerField()
