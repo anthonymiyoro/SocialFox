@@ -61,3 +61,5 @@ parts
 src/*.egg-info
 lib
 lib64
+
+twitterScraper/twitter_credentials.py
