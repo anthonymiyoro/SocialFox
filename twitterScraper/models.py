@@ -3,14 +3,17 @@ from django.db import models
 # Create your models here.
 
 # This model stores Tweets collected
-class Tweets(models.Model):
-    tweet_id = models.CharField()
-    tweet = models.CharField()
+class Tweet(models.Model):
+    tweet_id = models.CharField(max_length=500)
+    tweet = models.CharField(max_length=500)
     date_collected = models.DateTimeField(auto_now_add=True)
-    twitter_user = models.CharField("User Name on Twitter")
+    twitter_user = models.CharField("User Name on Twitter", max_length=50)
     number_of_likes = models.IntegerField()
     number_of_retweets = models.IntegerField()
-    tweet_device = models.CharField("Device Tweet was collected from", blank=True, null=True)
+    tweet_device = models.CharField("Device Tweet was collected from", blank=True, null=True, max_length=50)
+
+    class Meta:
+        ordering = ('tweet_id',)
 
 
 
