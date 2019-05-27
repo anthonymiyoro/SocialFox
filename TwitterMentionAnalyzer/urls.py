@@ -15,9 +15,11 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.urls import path
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from twitterScraper import views
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -39,5 +41,8 @@ router.register(r'users', UserViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # path('', include('snippets.urls'))
+    path('tweets/', views.tweet_list),
+    path('tweets/<int:pk>/', views.tweet_detail),
 ]
