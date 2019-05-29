@@ -11,6 +11,7 @@ class Tweet(models.Model):
     number_of_likes = models.IntegerField()
     number_of_retweets = models.IntegerField()
     tweet_device = models.CharField("Device Tweet was collected from", blank=True, null=True, max_length=50)
+    sentiment_score = models.DecimalField(max_digits=5, decimal_places=1, null=True)
 
     class Meta:
         ordering = ('tweet_id',)

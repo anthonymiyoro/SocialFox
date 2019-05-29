@@ -1,21 +1,17 @@
 import numpy as np
-import pandas as pd
 import re
-import urllib
-
-
 from pprint import pprint
+import pandas as pd
 
 import twitter_credentials
 
 import tweepy
-from tweepy import API
-from tweepy import Cursor
+from tweepy import API, Cursor, OAuthHandler, Stream
 from tweepy.streaming import StreamListener
-from tweepy import OAuthHandler
-from tweepy import Stream
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+# from models.py import Tweet
 
 ########### This function measures the sentiment of a string ###################
 analyser = SentimentIntensityAnalyzer()
@@ -138,19 +134,21 @@ class TweetAnalyzer():
             return -1
 
     def tweets_to_data_frame(self, tweets):
-        df = pd.DataFrame(data=[tweet.text for tweet in tweets], columns=['tweets'])
+        # This is a list of tweets that we have collected
+        tweet_list = [tweet.text for tweet in tweets]
+        pprint(tweet_list)
 
-        df['name'] = np.array([tweet.user.name for tweet in tweets])
-        # pprint ([tweet.user for tweet in tweets])
-        df['id'] = np.array([tweet.id for tweet in tweets])
-        # df['len'] = np.array([len(tweet.text) for tweet in tweets])
-        df['date'] = np.array([tweet.created_at for tweet in tweets])
-        df['location'] = np.array([tweet.user.location for tweet in tweets])
-        df['source'] = np.array([tweet.source for tweet in tweets])
-        df['likes'] = np.array([tweet.favorite_count for tweet in tweets])
-        df['retweets'] = np.array([tweet.retweet_count for tweet in tweets])
+        # df['name'] = np.array([tweet.user.name for tweet in tweets])
+        # # pprint ([tweet.user for tweet in tweets])
+        # df['id'] = np.array([tweet.id for tweet in tweets])
+        # # df['len'] = np.array([len(tweet.text) for tweet in tweets])
+        # df['date'] = np.array([tweet.created_at for tweet in tweets])
+        # df['location'] = np.array([tweet.user.location for tweet in tweets])
+        # df['source'] = np.array([tweet.source for tweet in tweets])
+        # df['likes'] = np.array([tweet.favorite_count for tweet in tweets])
+        # df['retweets'] = np.array([tweet.retweet_count for tweet in tweets])
 
-        return df
+        return tweet_list
 
 
 if __name__ == '__main__':
@@ -161,19 +159,10 @@ if __name__ == '__main__':
     api = twitter_client.get_twitter_client_api()
 
     """
-    Collect tweets from a users timeline
-    """
-    # # collect tweets from a users timeline
-    # tweets = api.user_timeline(screen_name="realDonaldTrump", count=1)
-
-    # df = tweet_analyzer.tweets_to_data_frame(tweets)
-    # df['sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['tweets']])
-
-    """
     Search for topic on twitter and create a dataframe with sentiment, etc
     """
     # Search for mention in tweets
-    query = 'okta'
+    query = '@WilliamsRuto'
     def query_topic_from_twitter(query):
         max_tweets = 100
 
@@ -186,8 +175,18 @@ if __name__ == '__main__':
                 new_tweets = api.search(q=query, count=count, max_id=str(last_id - 1))
                 if not new_tweets:
                     break
+
                 df = tweet_analyzer.tweets_to_data_frame(new_tweets)
                 df['sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['tweets']])
+                searched_tweets = searched_tweets + 1
+                last_id = new_tweets[-1].id
+
+                    # # Write chat message and channel name to database
+                    # ChatLogs.objects.create(
+                    #     message=resp,
+                    #     streamer_name=channel_name,
+                    #     # created_on=formatedDate
+                    # )
                 searched_tweets = searched_tweets + 1
                 last_id = new_tweets[-1].id
 
@@ -198,28 +197,5 @@ if __name__ == '__main__':
 
         print(df.head(10))
 
+    query_topic_from_twitter("@WilliamsRuto")
 
-    """
-    Get the users who favorited a status using its ID
-    """
-    def get_user_info_of_post_likes(post_id):
-        try:
-            json_data = urllib.request.urlopen('https://twitter.com/i/activity/favorited_popup?id=' + str(post_id)).read()
-            found_ids = re.findall(r'data-user-id=\\"+\d+', json_data)
-            unique_ids = list(set([re.findall(r'\d+', match)[0] for match in found_ids]))
-            return unique_ids
-
-        except urllib.request.HTTPError as e:
-            pprint (e)
-            return False
-
-        # Example:
-        # https://twitter.com/golan/status/731770343052972032
-
-        print (get_user_info_of_post_likes(731770343052972032))
-
-        # ['13520332', '416273351', '284966399']
-        #
-        # 13520332 +> @TopLeftBrick
-        # 416273351 => @Berenger_r
-        # 284966399 => @FFrink
