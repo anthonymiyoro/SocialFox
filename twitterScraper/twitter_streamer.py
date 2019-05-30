@@ -1,7 +1,6 @@
 import numpy as np
 import re
 from pprint import pprint
-import pandas as pd
 
 import twitter_credentials
 
@@ -134,10 +133,14 @@ class TweetAnalyzer():
             return -1
 
     def tweets_to_data_frame(self, tweets):
+        tweet_analyzer = TweetAnalyzer()
+
         # Create a list that will store dicitonary of tweets
         tweet_list = []
 
+        # loop through tweets collected
         for tweet in tweets:
+
             # pprint ("####################  Tweet starts here  #######################")
             # pprint (tweet.text)
             # pprint (tweet.id)
@@ -147,10 +150,14 @@ class TweetAnalyzer():
             # pprint (tweet.favorite_count)
             # pprint (tweet.retweet_count)
 
+            sentiment = tweet_analyzer.analyze_sentiment(tweet.text)
+            pprint (sentiment)
+
+            # Append different parts of tweet to dictionary
             tweet_dictionary = {"TweetText": tweet.text, "TweetID": tweet.id, "DateCreated": tweet.created_at, "TweetLocation": tweet.user.location,
             "TweetSource": tweet.source, "NumberofFavourites": tweet.favorite_count, "NumberofRetweets": tweet.retweet_count}
-            # pprint (tweet_dictionary)
 
+            # Append the multiple dictionaries to list
             tweet_list.append(tweet_dictionary)
 
         pprint (tweet_list)
@@ -168,7 +175,7 @@ if __name__ == '__main__':
     """
     Search for topic on twitter and create a dataframe with sentiment, etc
     """
-    # Search for mention in tweets
+    # Search for mention in tweets numbering the same as max_tweets
     query = '@WilliamsRuto'
     def query_topic_from_twitter(query):
         max_tweets = 100
