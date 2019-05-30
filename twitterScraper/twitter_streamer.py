@@ -134,32 +134,28 @@ class TweetAnalyzer():
             return -1
 
     def tweets_to_data_frame(self, tweets):
-        # This is a list of tweet text that we have collected
-        # tweet_text = [tweet.text for tweet in tweets]
+        # Create a list that will store dicitonary of tweets
+        tweet_list = []
 
         for tweet in tweets:
-            pprint ("####################  Tweet starts here  #######################")
-            pprint (tweet.text)
-            pprint (tweet.id)
-            pprint ("date created", tweet.created_at)
-            pprint ("location",tweet.user.location)
-            pprint ("source", tweet.source)
-            pprint ("number of favourites", tweet.favorite_count)
-            pprint ("number of reweets", tweet.retweet_count)
+            # pprint ("####################  Tweet starts here  #######################")
+            # pprint (tweet.text)
+            # pprint (tweet.id)
+            # pprint (tweet.created_at)
+            # pprint (tweet.user.location)
+            # pprint (tweet.source)
+            # pprint (tweet.favorite_count)
+            # pprint (tweet.retweet_count)
 
+            tweet_dictionary = {"TweetText": tweet.text, "TweetID": tweet.id, "DateCreated": tweet.created_at, "TweetLocation": tweet.user.location,
+            "TweetSource": tweet.source, "NumberofFavourites": tweet.favorite_count, "NumberofRetweets": tweet.retweet_count}
+            # pprint (tweet_dictionary)
 
+            tweet_list.append(tweet_dictionary)
 
-        # df['name'] = np.array([tweet.user.name for tweet in tweets])
-        # # pprint ([tweet.user for tweet in tweets])
-        # df['id'] = np.array([tweet.id for tweet in tweets])
-        # # df['len'] = np.array([len(tweet.text) for tweet in tweets])
-        # df['date'] = np.array([tweet.created_at for tweet in tweets])
-        # df['location'] = np.array([tweet.user.location for tweet in tweets])
-        # df['source'] = np.array([tweet.source for tweet in tweets])
-        # df['likes'] = np.array([tweet.favorite_count for tweet in tweets])
-        # df['retweets'] = np.array([tweet.retweet_count for tweet in tweets])
-
+        pprint (tweet_list)
         return 0
+
 
 
 if __name__ == '__main__':
