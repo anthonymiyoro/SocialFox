@@ -134,9 +134,20 @@ class TweetAnalyzer():
             return -1
 
     def tweets_to_data_frame(self, tweets):
-        # This is a list of tweets that we have collected
-        tweet_list = [tweet.text for tweet in tweets]
-        pprint(tweet_list)
+        # This is a list of tweet text that we have collected
+        # tweet_text = [tweet.text for tweet in tweets]
+
+        for tweet in tweets:
+            pprint ("####################  Tweet starts here  #######################")
+            pprint (tweet.text)
+            pprint (tweet.id)
+            pprint ("date created", tweet.created_at)
+            pprint ("location",tweet.user.location)
+            pprint ("source", tweet.source)
+            pprint ("number of favourites", tweet.favorite_count)
+            pprint ("number of reweets", tweet.retweet_count)
+
+
 
         # df['name'] = np.array([tweet.user.name for tweet in tweets])
         # # pprint ([tweet.user for tweet in tweets])
@@ -148,7 +159,7 @@ class TweetAnalyzer():
         # df['likes'] = np.array([tweet.favorite_count for tweet in tweets])
         # df['retweets'] = np.array([tweet.retweet_count for tweet in tweets])
 
-        return tweet_list
+        return 0
 
 
 if __name__ == '__main__':
