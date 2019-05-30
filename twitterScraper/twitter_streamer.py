@@ -1,4 +1,4 @@
-import numpy as np
+import json
 import re
 from pprint import pprint
 
@@ -132,7 +132,7 @@ class TweetAnalyzer():
         else:
             return -1
 
-    def tweets_to_data_frame(self, tweets):
+    def tweets_to_dictionary(self, tweets):
         tweet_analyzer = TweetAnalyzer()
 
         # Create a list that will store dicitonary of tweets
@@ -150,18 +150,18 @@ class TweetAnalyzer():
             # pprint (tweet.favorite_count)
             # pprint (tweet.retweet_count)
 
+            # Calculate sentiment of tweet using vadersentiment
             sentiment = tweet_analyzer.analyze_sentiment(tweet.text)
-            pprint (sentiment)
 
             # Append different parts of tweet to dictionary
             tweet_dictionary = {"TweetText": tweet.text, "TweetID": tweet.id, "DateCreated": tweet.created_at, "TweetLocation": tweet.user.location,
-            "TweetSource": tweet.source, "NumberofFavourites": tweet.favorite_count, "NumberofRetweets": tweet.retweet_count}
+            "TweetSource": tweet.source, "NumberofFavourites": tweet.favorite_count, "NumberofRetweets": tweet.retweet_count, "TweetSentiment":sentiment}
 
             # Append the multiple dictionaries to list
             tweet_list.append(tweet_dictionary)
 
-        pprint (tweet_list)
-        return 0
+        # pprint (tweet_list)
+        return tweet_list
 
 
 
@@ -190,10 +190,19 @@ if __name__ == '__main__':
                 if not new_tweets:
                     break
 
-                df = tweet_analyzer.tweets_to_data_frame(new_tweets)
-                df['sentiment'] = np.array([tweet_analyzer.analyze_sentiment(tweet) for tweet in df['tweets']])
+                df = tweet_analyzer.tweets_to_dictionary(new_tweets)
+
+                pprint ("Number of searched tweets")
+                pprint (searched_tweets)
+
+                pprint ("Collected Tweets")
+                pprint (df)
+
                 searched_tweets = searched_tweets + 1
                 last_id = new_tweets[-1].id
+
+                # Convert python dictionary to JSON
+                json.dumps(df)
 
                     # # Write chat message and channel name to database
                     # ChatLogs.objects.create(
@@ -201,15 +210,13 @@ if __name__ == '__main__':
                     #     streamer_name=channel_name,
                     #     # created_on=formatedDate
                     # )
-                searched_tweets = searched_tweets + 1
-                last_id = new_tweets[-1].id
 
             except tweepy.TweepError as e:
                 # depending on TweepError.code, one may want to retry or wait
                 # to keep things simple, we will give up on an error
+                pprint (e)
                 break
 
-        print(df.head(10))
 
     query_topic_from_twitter("@WilliamsRuto")
 
