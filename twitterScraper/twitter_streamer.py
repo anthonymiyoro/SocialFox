@@ -206,7 +206,7 @@ if __name__ == '__main__':
                 last_id = new_tweets[-1].id
 
                 # Convert python dictionary to JSON
-                json_result = json.dumps(collected_tweets)
+                json_result = json.dumps(collected_tweets, ensure_ascii=False)
                 pprint ("JSON RESULT")
                 pprint (json_result)
 
