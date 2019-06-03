@@ -1,6 +1,4 @@
-import json
-import re
-from pprint import pprint
+import json, re, datetime
 
 import twitter_credentials
 
@@ -8,7 +6,10 @@ import tweepy
 from tweepy import API, Cursor, OAuthHandler, Stream
 from tweepy.streaming import StreamListener
 
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from pprint import pprint
+
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer\
+# from django.core.serializers.json import DjangoJSONEncoder
 
 # from models.py import Tweet
 
@@ -153,8 +154,11 @@ class TweetAnalyzer():
             # Calculate sentiment of tweet using vadersentiment
             sentiment = tweet_analyzer.analyze_sentiment(tweet.text)
 
+            # Convert datetime tweet to string
+            tweet_datetime_obj = datetime.datetime.strftime(tweet.created_at, '%Y-%m-%d %H:%M:%S.%f')
+
             # Append different parts of tweet to dictionary
-            tweet_dictionary = {"TweetText": tweet.text, "TweetID": tweet.id, "DateCreated": tweet.created_at, "TweetLocation": tweet.user.location,
+            tweet_dictionary = {"TweetText": tweet.text, "TweetID": tweet.id, "DateCreated": tweet_datetime_obj, "TweetLocation": tweet.user.location,
             "TweetSource": tweet.source, "NumberofFavourites": tweet.favorite_count, "NumberofRetweets": tweet.retweet_count, "TweetSentiment":sentiment}
 
             # Append the multiple dictionaries to list
@@ -190,19 +194,21 @@ if __name__ == '__main__':
                 if not new_tweets:
                     break
 
-                df = tweet_analyzer.tweets_to_dictionary(new_tweets)
+                collected_tweets = tweet_analyzer.tweets_to_dictionary(new_tweets)
 
-                pprint ("Number of searched tweets")
-                pprint (searched_tweets)
+                # pprint ("Number of searched tweets")
+                # pprint (searched_tweets)
 
-                pprint ("Collected Tweets")
-                pprint (df)
+                # pprint ("Collected Tweets")
+                # pprint (df)
 
                 searched_tweets = searched_tweets + 1
                 last_id = new_tweets[-1].id
 
                 # Convert python dictionary to JSON
-                json.dumps(df)
+                json_result = json.dumps(collected_tweets)
+                pprint ("JSON RESULT")
+                pprint (json_result)
 
                     # # Write chat message and channel name to database
                     # ChatLogs.objects.create(
@@ -210,6 +216,7 @@ if __name__ == '__main__':
                     #     streamer_name=channel_name,
                     #     # created_on=formatedDate
                     # )
+            # return json_result
 
             except tweepy.TweepError as e:
                 # depending on TweepError.code, one may want to retry or wait
