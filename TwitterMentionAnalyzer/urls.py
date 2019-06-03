@@ -43,6 +43,8 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('', include('snippets.urls'))
+    #View all tweets
     path('tweets/', views.tweet_list),
     path('tweets/<int:pk>/', views.tweet_detail),
+    path('analyse_tweet/', views.analyse_tweet),
 ]
