@@ -180,7 +180,7 @@ if __name__ == '__main__':
     Search for topic on twitter and create a dataframe with sentiment, etc
     """
     # Search for mention in tweets numbering the same as max_tweets
-    query = '@WilliamsRuto'
+    # query = '@WilliamsRuto'
     def query_topic_from_twitter(query):
         max_tweets = 100
 
@@ -194,13 +194,8 @@ if __name__ == '__main__':
                 if not new_tweets:
                     break
 
+                # Append result from search to list of dictionaries in the function below
                 collected_tweets = tweet_analyzer.tweets_to_dictionary(new_tweets)
-
-                # pprint ("Number of searched tweets")
-                # pprint (searched_tweets)
-
-                # pprint ("Collected Tweets")
-                # pprint (df)
 
                 searched_tweets = searched_tweets + 1
                 last_id = new_tweets[-1].id
@@ -208,7 +203,7 @@ if __name__ == '__main__':
                 # Convert python dictionary to JSON
                 json_result = json.dumps(collected_tweets, ensure_ascii=False)
                 pprint ("JSON RESULT")
-                pprint (json_result)
+                # pprint (json_result)
 
                     # # Write chat message and channel name to database
                     # ChatLogs.objects.create(
@@ -216,13 +211,15 @@ if __name__ == '__main__':
                     #     streamer_name=channel_name,
                     #     # created_on=formatedDate
                     # )
-            # return json_result
+
 
             except tweepy.TweepError as e:
-                # depending on TweepError.code, one may want to retry or wait
+                # depending on Tweepy Error.code, one may want to retry or wait
                 # to keep things simple, we will give up on an error
                 pprint (e)
                 break
+
+        return (json_result)
 
 
     query_topic_from_twitter("@WilliamsRuto")
