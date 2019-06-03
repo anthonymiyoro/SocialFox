@@ -1,6 +1,6 @@
 import json, re, datetime
 
-import twitter_credentials
+import twitterScraper.twitter_credentials
 
 import tweepy
 from tweepy import API, Cursor, OAuthHandler, Stream
@@ -8,8 +8,7 @@ from tweepy.streaming import StreamListener
 
 from pprint import pprint
 
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer\
-# from django.core.serializers.json import DjangoJSONEncoder
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 # from models.py import Tweet
 
@@ -31,8 +30,8 @@ def sentiment_scorer(tweet):
 # # # # TWITTER AUTHENTICATER # # # #
 class TwitterAuthenticator():
     def authenticate_twitter_app(self):
-        auth = OAuthHandler(twitter_credentials.CONSUMER_KEY, twitter_credentials.CONSUMER_SECRET)
-        auth.set_access_token(twitter_credentials.ACCESS_TOKEN, twitter_credentials.ACCESS_TOKEN_SECRET)
+        auth = OAuthHandler(twitterScraper.twitter_credentials.CONSUMER_KEY, twitterScraper.twitter_credentials.CONSUMER_SECRET)
+        auth.set_access_token(twitterScraper.twitter_credentials.ACCESS_TOKEN, twitterScraper.twitter_credentials.ACCESS_TOKEN_SECRET)
         return auth
 
 
@@ -115,6 +114,7 @@ class TweetAnalyzer():
     """
     Functionality for analyzing and categorizing content from tweets.
     """
+
     # sanitize tweet
     def clean_tweet(self, tweet):
         return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
@@ -134,6 +134,7 @@ class TweetAnalyzer():
             return -1
 
     def tweets_to_dictionary(self, tweets):
+
         tweet_analyzer = TweetAnalyzer()
 
         # Create a list that will store dicitonary of tweets
@@ -169,19 +170,18 @@ class TweetAnalyzer():
 
 
 
-if __name__ == '__main__':
-
-    twitter_client = TwitterClient()
-    tweet_analyzer = TweetAnalyzer()
-
-    api = twitter_client.get_twitter_client_api()
-
     """
-    Search for topic on twitter and create a dataframe with sentiment, etc
+    Search for topic on twitter and create a JSON object with sentiment, etc
     """
     # Search for mention in tweets numbering the same as max_tweets
     # query = '@WilliamsRuto'
-    def query_topic_from_twitter(query):
+    def query_topic_from_twitter(self, query):
+
+        twitter_client = TwitterClient()
+        api = twitter_client.get_twitter_client_api()
+
+        tweet_analyzer = TweetAnalyzer()
+
         max_tweets = 100
 
         searched_tweets = 0
@@ -222,5 +222,13 @@ if __name__ == '__main__':
         return (json_result)
 
 
-    query_topic_from_twitter("@WilliamsRuto")
+
+if __name__ == '__main__':
+
+    twitter_client = TwitterClient()
+    tweet_analyzer = TweetAnalyzer()
+
+    api = twitter_client.get_twitter_client_api()
+
+    # tweet_analyzer.query_topic_from_twitter("@WilliamsRuto")
 
