@@ -10,7 +10,11 @@ from rest_framework import permissions, status
 
 #Custom App Imports
 from twitterScraper.models import Tweet
-from twitterScraper.serializers import TweetSerializer
+from twitterScraper.serializers import TweetSerializer, TwitterAnalyserSerializer
+
+# File imports
+from .twitter_streamer import TweetAnalyzer
+tweetanalyzer = TweetAnalyzer()
 
 
 
@@ -47,14 +51,14 @@ def analyse_tweet(request, format=None):
 
     if request.method == 'POST':
         # A serializer allows data to be collected from a POST request
-        serializer = TweetSerializer(data=request.data)
+        serializer = TwitterAnalyserSerializer(data=request.data)
 
         # If the serializer is valid, send twitter username to function that collects and
         # analyses tweets
         if serializer.is_valid():
             try:
                 tweet_username = (serializer.validated_data['twitter_user'])
-                analysed_json = analyze_data(tweet_username)
+                analysed_json = tweetanalyzer.query_topic_from_twitter(tweet_username)
 
             except Exception as e:
                 return JsonResponse(str(e), safe=False)
