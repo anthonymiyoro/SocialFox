@@ -1,15 +1,20 @@
+# Django Imports
 from django.http import HttpResponse, JsonResponse
-from twitterScraper.models import Tweet
-from twitterScraper.serializers import TweetSerializer
-from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
+
+# Rest Framework Imports
+from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import permissions, status
 
-# Create your views here.
+#Custom App Imports
+from twitterScraper.models import Tweet
+from twitterScraper.serializers import TweetSerializer
 
-########################## This function returns a JSON object with all the tweets collected so far ###############################
+
+
+########################## This view returns a JSON object with all the tweets collected so far ###############################
 @csrf_exempt
 def tweet_list(request):
     """
@@ -31,8 +36,7 @@ def tweet_list(request):
 
 
 
-
-######################## This function analyses the sentiment of a streamers chat collected so far #####################
+######################## This view searches for twitter mentions from the provided tweeter username #####################
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def analyse_tweet(request, format=None):
