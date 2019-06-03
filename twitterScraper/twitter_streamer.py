@@ -176,17 +176,18 @@ class TweetAnalyzer():
     # Search for mention in tweets numbering the same as max_tweets
     # query = '@WilliamsRuto'
     def query_topic_from_twitter(self, query):
-
+        # Instanciate classes
         twitter_client = TwitterClient()
         api = twitter_client.get_twitter_client_api()
 
         tweet_analyzer = TweetAnalyzer()
 
         max_tweets = 100
-
         searched_tweets = 0
         last_id = -1
+        list_of_tweets = []
 
+        #Search for the number of tweets specified in max_tweets
         while searched_tweets < max_tweets:
             count = max_tweets - searched_tweets
             try:
@@ -194,16 +195,13 @@ class TweetAnalyzer():
                 if not new_tweets:
                     break
 
-                # Append result from search to list of dictionaries in the function below
+                # Collected tweets returns a dictionary of 1 tweet
                 collected_tweets = tweet_analyzer.tweets_to_dictionary(new_tweets)
+                list_of_tweets.append(collected_tweets)
 
                 searched_tweets = searched_tweets + 1
                 last_id = new_tweets[-1].id
-
-                # Convert python dictionary to JSON
-                json_result = json.dumps(collected_tweets, ensure_ascii=False)
-                pprint ("JSON RESULT")
-                # pprint (json_result)
+                    # pprint (json_result)
 
                     # # Write chat message and channel name to database
                     # ChatLogs.objects.create(
@@ -212,12 +210,20 @@ class TweetAnalyzer():
                     #     # created_on=formatedDate
                     # )
 
+                  # Convert python dictionary to JSON
+                # json_result = json.dumps(list_of_tweets, ensure_ascii=False).decode(list_of_tweets)
+                json_result = json.loads(json.dumps(list_of_tweets, ensure_ascii=False))
+                pprint ("JSON RESULT")
+
 
             except tweepy.TweepError as e:
                 # depending on Tweepy Error.code, one may want to retry or wait
                 # to keep things simple, we will give up on an error
                 pprint (e)
                 break
+
+
+
 
         return (json_result)
 
