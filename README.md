@@ -1,4 +1,4 @@
-## TwitterMentionAnalyser
+## Twitter Mention Analyser Server
 
 Python Server that collects and analyses twitter mentions for sentiment.
 
