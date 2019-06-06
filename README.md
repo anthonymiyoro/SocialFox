@@ -4,8 +4,7 @@ Python Server that collects and analyses twitter mentions for sentiment.
 
 Consumes a POST request in the form of:
 
-'''
-
+```
 import 
 http.client
 
@@ -23,12 +22,10 @@ res = conn.getresponse()
 data = res.read()
 
 print(data.decode("utf-8"))
+```
 
-'''
-
-And returns a JSON response with the structure below, but takes a long time (around 60 seconds :( ).
-
-'''
+And returns a JSON response with the structure below, but takes a long time (around 60 seconds :( ) :
+```
 [
   [
           {
@@ -84,4 +81,6 @@ And returns a JSON response with the structure below, but takes a long time (aro
       ]
     ]
 
-'''
+```
+
+It requires a username and password usig standard authentication when sending a POST request.
