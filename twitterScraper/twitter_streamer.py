@@ -182,7 +182,7 @@ class TweetAnalyzer():
 
         tweet_analyzer = TweetAnalyzer()
 
-        max_tweets = 100
+        max_tweets = 50
         searched_tweets = 0
         last_id = -1
         list_of_tweets = []
