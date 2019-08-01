@@ -45,8 +45,8 @@ def tweet_list(request):
 @permission_classes((permissions.AllowAny,))
 def analyse_tweet(request, format=None):
     """
-   This function recieves a POST request with a twitter username, after which we search for their
-   mentions and return them as a very long JSON string.
+    This function takes in a POST request with a twitter username. The given username has all its mentions searched for and
+    the resuts are sent as JSON objects. The average runtime of a request is 29 seconds :(
     """
 
     if request.method == 'POST':

@@ -1,16 +1,16 @@
+# Python imports
 import json, re, datetime
+from pprint import pprint
 
-import twitterScraper.twitter_credentials
-
+# Library imports
 import tweepy
 from tweepy import API, Cursor, OAuthHandler, Stream
 from tweepy.streaming import StreamListener
 
-from pprint import pprint
-
+# Local imports
+import twitterScraper.twitter_credentials
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
-# from models.py import Tweet
 
 ########### This function measures the sentiment of a string ###################
 analyser = SentimentIntensityAnalyzer()
@@ -125,13 +125,7 @@ class TweetAnalyzer():
         # Get and convert sentiment score to decimal
         matches = re.findall("[+-]?\d+\.\d+", analysis)
         analysis = float(matches[0])
-
-        if analysis > 0:
-            return 1
-        elif analysis == 0:
-            return 0
-        else:
-            return -1
+        return analysis
 
     def tweets_to_dictionary(self, tweets):
 
@@ -167,7 +161,6 @@ class TweetAnalyzer():
 
         # pprint (tweet_list)
         return tweet_list
-
 
 
     """
