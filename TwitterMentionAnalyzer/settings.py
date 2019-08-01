@@ -129,6 +129,7 @@ MEDIA_ROOT = u'/home/amiyoro2/TwitterMentionAnalyzer/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = u'/home/amiyoro2/TwitterMentionAnalyzer/static'
 STATIC_URL = '/static/'
+APPEND_SLASH=False
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
