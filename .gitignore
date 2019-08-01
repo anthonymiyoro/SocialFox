@@ -38,6 +38,8 @@ coverage.xml
 .mr.developer.cfg
 .project
 .pydevproject
+static/
+static/*
 
 # Rope
 .ropeproject
