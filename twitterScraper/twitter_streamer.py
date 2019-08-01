@@ -186,6 +186,7 @@ class TweetAnalyzer():
         searched_tweets = 0
         last_id = -1
         list_of_tweets = []
+        json_result = "Too few tweets have been collected as the server is over-burdened :( Please wait for 1 minute and then try again."
 
         #Search for the number of tweets specified in max_tweets
         while searched_tweets < max_tweets:
@@ -220,10 +221,8 @@ class TweetAnalyzer():
                 # depending on Tweepy Error.code, one may want to retry or wait
                 # to keep things simple, we will give up on an error
                 pprint (e)
+                return (json.dumps(e, ensure_ascii=False))
                 break
-
-
-
 
         return (json_result)
 
