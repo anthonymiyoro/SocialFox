@@ -2,10 +2,12 @@
 
 Python Server that collects and analyses twitter mentions for sentiment.
 
-Consumes a POST request in the form of:
+A Working Postman collection can be found here: [I'm an inline-style link](https://www.google.com)
+
+Consumes a POST request in form-data format as demonstrated below in python3:
 
 ```
-import 
+import
 http.client
 
 conn = http.client.HTTPConnection("amiyoro2,pythonanywhere,com")
@@ -83,4 +85,4 @@ And returns a JSON response with the structure below, but takes a long time (aro
 
 ```
 
-It requires a username and password usig standard authentication when sending a POST request.
+It requires a username and password using standard authentication when sending a POST request.
