@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "5dc6934b-a6a7-4d3a-b7bd-be66c96425ff",
+		"name": "Twitter Harvester",
+		"description": "Requests that allow for the collection of tweets and their sentiments.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Twitter Harvesting",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Pass@1234",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "twitter_user",
+							"value": "WilliamSRuto",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://amiyoro2.pythonanywhere.com/analyse_tweet/",
+					"protocol": "http",
+					"host": [
+						"amiyoro2",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"analyse_tweet",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
