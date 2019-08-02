@@ -2,7 +2,7 @@
 
 Python Server that collects and analyses twitter mentions for sentiment.
 
-A Working Postman collection can be found here: [I'm an inline-style link](https://www.google.com)
+A Working Postman collection can be found [here:](https://raw.githubusercontent.com/anthonymiyoro/TwitterPoliticianServer/master/TwitterHarvester.postman_collection.json)
 
 Consumes a POST request in form-data format as demonstrated below in python3:
 
