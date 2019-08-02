@@ -37,7 +37,7 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
-schema_view = get_swagger_view(title='Twitter Sentiment Analyser API')
+schema_view = get_swagger_view(title='Twitter Sentiment Harvester API', url='/analyse_tweet')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
