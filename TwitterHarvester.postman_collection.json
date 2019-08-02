@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "5dc6934b-a6a7-4d3a-b7bd-be66c96425ff",
 		"name": "Twitter Harvester",
-		"description": "Requests that allow for the collection of tweets and their sentiments.",
+		"description": "POST requst that returns tweets and their sentiment.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
