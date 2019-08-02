@@ -26,7 +26,7 @@ data = res.read()
 print(data.decode("utf-8"))
 ```
 
-And returns a JSON response with the structure below, but takes a long time (around 60 seconds :( ) :
+And returns a JSON response with the structure below, but takes around 30 seconds :(
 ```
 [
   [
