@@ -1,6 +1,6 @@
 ## Twitter Mention Analyser Server
 
-Python Server that collects and analyses twitter mentions for sentiment.
+Python/(Django) API Server that collects, stores and analyses twitter mentions for sentiment.
 
 A Working Postman collection can be found [here:](https://raw.githubusercontent.com/anthonymiyoro/TwitterPoliticianServer/master/TwitterHarvester.postman_collection.json)
 
