@@ -44,4 +44,4 @@ And returns a JSON response with the structure below, but takes around 30 second
 
 ```
 
-It requires a username(admin) and password(Pass@1234) using basic authentication when sending the request. 
+It requires a username(admin) and password(Pass@1234) using basic authentication when sending the request as detailed in the postman documentation.
