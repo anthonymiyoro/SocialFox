@@ -1,4 +1,4 @@
-## Twitter Mention Analyser Server
+## Twitter Sentiment Harvester (Server)
 
 Python/Django API Server that collects, stores and analyses twitter mentions for sentiment.
 
