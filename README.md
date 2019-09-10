@@ -2,8 +2,6 @@
 
 Python/Django API Server that collects, stores and analyses twitter mentions for sentiment.
 
-#### Full documentation can be found [here:](https://documenter.getpostman.com/view/1877723/SVmqzLRp?version=latest)
-
 
 And returns a JSON response with the structure below, but takes around 30 seconds :(
 ```
@@ -44,3 +42,4 @@ And returns a JSON response with the structure below, but takes around 30 second
 
 ```
 
+### Full documentation can be found [here:](https://documenter.getpostman.com/view/1877723/SVmqzLRp?version=latest)
