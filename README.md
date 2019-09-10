@@ -2,7 +2,7 @@
 
 Python/Django API Server that collects, stores and analyses twitter mentions for sentiment.
 
-A Working Postman collection can be found [here:](https://raw.githubusercontent.com/anthonymiyoro/TwitterPoliticianServer/master/TwitterHarvester.postman_collection.json)
+#### Full documentation can be found [here:](https://documenter.getpostman.com/view/1877723/SVmqzLRp?version=latest)
 
 
 And returns a JSON response with the structure below, but takes around 30 seconds :(
@@ -44,4 +44,3 @@ And returns a JSON response with the structure below, but takes around 30 second
 
 ```
 
-It requires a username(admin) and password(Pass@1234) using basic authentication when sending the request as detailed in the postman documentation.
