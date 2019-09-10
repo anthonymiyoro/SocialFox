@@ -20,7 +20,6 @@ from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from twitterScraper import views
-from rest_framework_swagger.views import get_swagger_view
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,14 +36,13 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
-schema_view = get_swagger_view(title='Twitter Sentiment Harvester API', url='/analyse_tweet')
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^', include(router.urls)),
-    url(r'^$', schema_view),
+    url(r'^', include(router.urls)),
+    # url(r'^$', schema_view),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # path('', include('snippets.urls'))
     #View all tweets
