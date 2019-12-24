@@ -22,4 +22,4 @@ And returns a JSON response with the structure below, but takes around 30 second
 
 ```
 
-### Full documentation can be found [here:](https://documenter.getpostman.com/view/1877723/SVmqzLRp?version=latest)
+### Full documentation can be found [here](https://documenter.getpostman.com/view/1877723/SVmqzLRp?version=latest)
